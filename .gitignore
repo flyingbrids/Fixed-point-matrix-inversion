@@ -1,0 +1,11 @@
+matrix_inverse/
+*.dcp
+*.veo
+*.vho
+*.xml
+*.vhd
+*.txt
+*.zip
+*.v
+*.vhdl
+*.xdc
