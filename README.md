@@ -1,5 +1,3 @@
-# PalindromeArray
-detect if the input array is Palindrome
 
 To open this project, you need Vivado 2021.2 or above.
 Steps to re-create the project on Vivado:
