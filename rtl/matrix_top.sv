@@ -65,7 +65,6 @@ generate
   end
 endgenerate
 
-logic full;
 assign ready = empty2;
 logic empty1, empty2;
 
@@ -92,19 +91,41 @@ logic [$clog2(MAT_SIZE):0] nextOpCnt_ff;
 
 logic errorIn, errorIn_ff, errorOut, errorOut_ff;
 
-// new Input matrix buffer
+// fifoRd1 & fifoRd2 interlock
+logic new_fifo_rd, old_fifo_rd;
+logic fifoRd1, fifoRd2;
+assign fifoRd1 = new_fifo_rd & ~empty1;
+assign fifoRd2 = old_fifo_rd & ~empty2 ;
+
+always_ff @ (posedge clk, posedge reset) begin
+		if (reset) begin
+           new_fifo_rd <= '0;
+           old_fifo_rd <= '0;
+        end else begin
+           if (~empty2)
+              new_fifo_rd <= '0;
+           else if (~empty1)
+              new_fifo_rd <= '1;
+        
+           if (~fifoRd1 & ~empty2)
+              old_fifo_rd <= '1;
+           else 
+              old_fifo_rd <= '0; 
+        end 
+end         
+
 FIFO_RAM #(
    .DATA_WIDTH(ARRAYSIZE*MAT_SIZE+(MAT_SIZE+1)*($clog2(MAT_SIZE)+1)+1)
-  ,.ADDR_WIDTH(2) 
+  ,.ADDR_WIDTH(3) 
 )
 newInBuf (
    .clk (clk)
   ,.reset(reset)  
   ,.flush(reset)
   ,.fifoWr(mat_vld) 
-  ,.fifoRd(empty2 & !empty1) 
+  ,.fifoRd(fifoRd1) 
   ,.empty(empty1)
-  ,.full(full)
+  ,.full()
   ,.din({{((MAT_SIZE+1)*($clog2(MAT_SIZE)+1)+1){'0}},matStreamIn})   
   ,.dout(virginInput)
 );
@@ -112,14 +133,14 @@ newInBuf (
 // next op matrix buffer 
 FIFO_RAM #(
    .DATA_WIDTH(ARRAYSIZE*MAT_SIZE+(MAT_SIZE+1)*($clog2(MAT_SIZE)+1)+1)
-  ,.ADDR_WIDTH(2) 
+  ,.ADDR_WIDTH(3) 
 )
 oldInBuf (
    .clk (clk)
   ,.reset(reset)  
   ,.flush(reset)
   ,.fifoWr(matOutVld_d) 
-  ,.fifoRd(!empty2) 
+  ,.fifoRd(fifoRd2) 
   ,.empty(empty2)
   ,.full()
   ,.din(iterateInput)   
@@ -161,9 +182,9 @@ always_ff @ (posedge clk, posedge reset) begin
 			bufferSwitcher <= 1'b1;
 			newCount <= '0;
 		end else begin
-		    FIFOread <= !(empty1 & empty2);
-			bufferSwitcher <= empty2;
-			newCount <= newCount + (empty2 & !empty1);
+		    FIFOread <= fifoRd1| fifoRd2;
+			bufferSwitcher <= ~fifoRd2;
+			newCount <= newCount + fifoRd1;
 		end
 end
 
