@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="4,042.501 ns"></ZoomEndTime>
-      <Cursor1Time time="4,042.500 ns"></Cursor1Time>
+      <ZoomStartTime time="1,445.659 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,486.710 ns"></ZoomEndTime>
+      <Cursor1Time time="1,457.500 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="156"></NameColumnWidth>
+      <NameColumnWidth column_width="152"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="9" />
    <wvobject fp_name="/matrixInversion_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -53,5 +53,165 @@
    <wvobject fp_name="/matrixInversion_tb/out_end" type="logic">
       <obj_property name="ElementShortName">out_end</obj_property>
       <obj_property name="ObjectShortName">out_end</obj_property>
+   </wvobject>
+   <wvobject fp_name="/matrixInversion_tb/imat" type="array">
+      <obj_property name="ElementShortName">imat[4:0][4:0][35:0]</obj_property>
+      <obj_property name="ObjectShortName">imat[4:0][4:0][35:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/matrixInversion_tb/imat[4]" type="array">
+         <obj_property name="ElementShortName">[4][4:0][35:0]</obj_property>
+         <obj_property name="ObjectShortName">[4][4:0][35:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/matrixInversion_tb/imat[4][4]" type="array">
+            <obj_property name="ElementShortName">[4][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[4][3]" type="array">
+            <obj_property name="ElementShortName">[3][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[4][2]" type="array">
+            <obj_property name="ElementShortName">[2][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[4][1]" type="array">
+            <obj_property name="ElementShortName">[1][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[4][0]" type="array">
+            <obj_property name="ElementShortName">[0][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/matrixInversion_tb/imat[3]" type="array">
+         <obj_property name="ElementShortName">[3][4:0][35:0]</obj_property>
+         <obj_property name="ObjectShortName">[3][4:0][35:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/matrixInversion_tb/imat[3][4]" type="array">
+            <obj_property name="ElementShortName">[4][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[3][3]" type="array">
+            <obj_property name="ElementShortName">[3][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[3][2]" type="array">
+            <obj_property name="ElementShortName">[2][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[3][1]" type="array">
+            <obj_property name="ElementShortName">[1][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[3][0]" type="array">
+            <obj_property name="ElementShortName">[0][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/matrixInversion_tb/imat[2]" type="array">
+         <obj_property name="ElementShortName">[2][4:0][35:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][4:0][35:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/matrixInversion_tb/imat[2][4]" type="array">
+            <obj_property name="ElementShortName">[4][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[2][3]" type="array">
+            <obj_property name="ElementShortName">[3][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[2][2]" type="array">
+            <obj_property name="ElementShortName">[2][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[2][1]" type="array">
+            <obj_property name="ElementShortName">[1][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[2][0]" type="array">
+            <obj_property name="ElementShortName">[0][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/matrixInversion_tb/imat[1]" type="array">
+         <obj_property name="ElementShortName">[1][4:0][35:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][4:0][35:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/matrixInversion_tb/imat[1][4]" type="array">
+            <obj_property name="ElementShortName">[4][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[1][3]" type="array">
+            <obj_property name="ElementShortName">[3][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[1][2]" type="array">
+            <obj_property name="ElementShortName">[2][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[1][1]" type="array">
+            <obj_property name="ElementShortName">[1][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[1][0]" type="array">
+            <obj_property name="ElementShortName">[0][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/matrixInversion_tb/imat[0]" type="array">
+         <obj_property name="ElementShortName">[0][4:0][35:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][4:0][35:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/matrixInversion_tb/imat[0][4]" type="array">
+            <obj_property name="ElementShortName">[4][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[0][3]" type="array">
+            <obj_property name="ElementShortName">[3][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[0][2]" type="array">
+            <obj_property name="ElementShortName">[2][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[0][1]" type="array">
+            <obj_property name="ElementShortName">[1][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/matrixInversion_tb/imat[0][0]" type="array">
+            <obj_property name="ElementShortName">[0][35:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][35:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
    </wvobject>
 </wave_config>
