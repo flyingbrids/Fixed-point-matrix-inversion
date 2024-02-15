@@ -22,32 +22,29 @@ module columnScan
 	 ,parameter DATWIDTH  = 64
  )
  (  
-    input logic clk
-	,input logic reset
-	,input logic [$clog2(MAT_SIZE): 0] opCnt
-	,input logic [DATWIDTH-1:0] columnData [MAT_SIZE-1:0]
-	,input logic matchStart 
-   ,output logic error
-   ,output logic [$clog2(MAT_SIZE): 0] winnerIndex
+     input  logic clk
+	,input  logic reset
+	,input  logic [$clog2(MAT_SIZE): 0] opCnt
+	,input  logic [DATWIDTH-1:0] columnData [MAT_SIZE-1:0]
+	,input  logic matchStart 
+    ,output logic error
+    ,output logic [$clog2(MAT_SIZE): 0] winnerIndex
 	,output logic matchDone	
+	,input  logic matchDoneRst
  );
  
  
 // Tournament Tree Comparison 
-logic [DATWIDTH-1:0] absColVectInit [MAT_SIZE-1:0];
-logic [DATWIDTH-1:0] absColVect [MAT_SIZE-1:0]; 
+logic [DATWIDTH-1:0]        absColVect             [MAT_SIZE-1:0]; 
 logic [$clog2(MAT_SIZE): 0] currentWinnerIndexInit [MAT_SIZE-1:0];
-logic [$clog2(MAT_SIZE): 0] zeroInit [MAT_SIZE-1:0];
-logic [$clog2(MAT_SIZE): 0] currentWinnerIndex [MAT_SIZE-1:0];
-logic [$clog2(MAT_SIZE): 0] nextWinnerIndex [HALF_MAT_SIZE-1:0];
+logic [$clog2(MAT_SIZE): 0] currentWinnerIndex     [MAT_SIZE-1:0];
+logic [$clog2(MAT_SIZE): 0] nextWinnerIndex        [HALF_MAT_SIZE-1:0];
 
 // initialize candiates index
 genvar mm;
 generate 
   for (mm = 0; mm < MAT_SIZE; mm++) begin : CandiatesInitialize
-      assign absColVectInit[mm] = '0;
-		assign currentWinnerIndexInit[mm] = mm[$clog2(MAT_SIZE): 0] + opCnt;
-      assign zeroInit[mm] = '0;		
+	  assign currentWinnerIndexInit[mm] = mm[$clog2(MAT_SIZE): 0] + opCnt;	
   end
 endgenerate 
 
@@ -68,58 +65,48 @@ logic matchStarted;
 int m;
 always_ff @ (posedge clk or posedge reset) begin
      if (reset) begin
-	      numberMatchTotal <= '0;
+	        numberMatchTotal <= '0;
 			numberMatchDone <= '0;
-			currentWinnerIndex  <= zeroInit;
+			currentWinnerIndex  <= '{default : '0};
 			matchDone <= 1'b0;
 			winnerIndex <= '0;
 			error <= 1'b0;
 			matchStarted<= 1'b0;
-         absColVect <= absColVectInit;
+            absColVect <= '{default : '0};;
      end else if (matchStart) begin
-	      numberMatchTotal <= (MAT_SIZE[$clog2(MAT_SIZE): 0] - opCnt) >> 1;	
+	        numberMatchTotal <= (MAT_SIZE[$clog2(MAT_SIZE): 0] - opCnt) >> 1;	
 			numberMatchDone[$clog2(MAT_SIZE): 1] <= '0;
 			numberMatchDone[0] <= 1'b1; // count start from 1
 			currentWinnerIndex  <= currentWinnerIndexInit;
 			matchDone <= 1'b0;
 			matchStarted <= 1'b1;
-         winnerIndex <= MAT_SIZE - 1'b1;		
+            winnerIndex <= MAT_SIZE - 1'b1;		
 			error <= 1'b0;	
 			 // clock in the column absolute value
 			for (m=0; m<MAT_SIZE; m++) begin
-              absColVect[m] <= columnData[m][DATWIDTH-1] ? (~columnData[m] +1'b1) : columnData[m];			
+                 absColVect[m] <= columnData[m][DATWIDTH-1] ? (~columnData[m] +1'b1) : columnData[m];			
 			end
 	  end else begin
-	      numberMatchTotal <= numberMatchTotal;
-			absColVect <= absColVect;
-			// winner index update after each round
-			if (numberMatchDone < numberMatchTotal) begin
-				numberMatchDone <= numberMatchDone + 1'b1;
-				currentWinnerIndex[HALF_MAT_SIZE-1:0]  <= nextWinnerIndex;			
-			end else begin
-				numberMatchDone <= numberMatchDone;	
-	         currentWinnerIndex  <= currentWinnerIndex;			
-			end
-         // final winner index result. When the final winner is zero, output error		
-         if (numberMatchDone == numberMatchTotal | numberMatchTotal == '0) begin	
-             if (numberMatchTotal == '0) begin // single element, no match needed
-				     winnerIndex <= MAT_SIZE - 1'b1;
-					  error <= (|absColVect[MAT_SIZE - 1'b1])? 1'b0 : 1'b1;
-				 end else if (MAT_SIZE[0] == opCnt[0]) begin // use semifinal result
-				     winnerIndex <= nextWinnerIndex [0];
-					  error <=  (|absColVect[nextWinnerIndex [0]])? 1'b0 : 1'b1;				 
-             end else begin // add final match
-				     winnerIndex <= absColVect[nextWinnerIndex [0]] > absColVect[MAT_SIZE - 1'b1]? 
-					                 nextWinnerIndex [0] : MAT_SIZE - 1'b1;
-					  error <= (|{absColVect[nextWinnerIndex [0]],absColVect[MAT_SIZE - 1'b1]})? 1'b0 : 1'b1;
-				 end
-			end else begin
-			    winnerIndex <= winnerIndex;
-				 error <= error;
-			end
-			matchDone <= (numberMatchDone == numberMatchTotal | numberMatchTotal == '0) & matchStarted;
-			matchStarted <= !(numberMatchDone == numberMatchTotal | numberMatchTotal == '0);
-	  end
+	        if (numberMatchTotal == '0) begin // single element, no match needed
+				winnerIndex <= MAT_SIZE - 1'b1;
+				error <= (|absColVect[MAT_SIZE - 1'b1])? 1'b0 : 1'b1;
+            end else if (numberMatchDone == numberMatchTotal) begin
+                if (MAT_SIZE[0] == opCnt[0]) begin
+				   winnerIndex <= nextWinnerIndex [0];
+				   error       <= (|absColVect[nextWinnerIndex[0]])? 1'b0 : 1'b1;	
+				end else begin
+				   winnerIndex <= absColVect[nextWinnerIndex [0]] > absColVect[MAT_SIZE - 1'b1]? nextWinnerIndex [0] : MAT_SIZE - 1'b1;
+				   error       <= (|{absColVect[nextWinnerIndex[0]],absColVect[MAT_SIZE - 1'b1]})? 1'b0 : 1'b1;
+                end 				
+            end 
+            numberMatchDone                        <= (numberMatchDone < numberMatchTotal)? numberMatchDone + 1'b1 : numberMatchDone;
+			currentWinnerIndex[HALF_MAT_SIZE-1:0]  <= nextWinnerIndex;					
+			matchStarted                           <= !(numberMatchDone == numberMatchTotal | numberMatchTotal == '0);		 
+			if ((numberMatchDone == numberMatchTotal | numberMatchTotal == '0) & matchStarted)
+               matchDone <= 1'b1; 
+            else if (matchDoneRst)
+               matchDone <= 1'b0;			
+	 end
 end 
  
 endmodule

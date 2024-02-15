@@ -132,12 +132,13 @@ always @ (posedge clk, posedge reset) begin
 	out_end <= '0;
  end else if (out_vld) begin
     imat_ff[t] <= imat;
-	 if (t==TESTNUMBER-1)    
-	     out_end <= '1;
-	 t <= t + 1;
+	t <= t + 1;
+	if (t==TESTNUMBER-1)    
+	    out_end <= '1;
  end else begin 
     imat_ff <= imat_ff;
-	 t <= t;
+	t <= t;
+
  end
 end
 
